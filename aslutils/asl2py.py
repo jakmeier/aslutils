@@ -263,7 +263,7 @@ class PythonVisitor(ASLVisitor):
 
     def visitLiteral(self, ctx: ASLParser.LiteralContext):
         if ctx.Integer():
-            return ctx.Integer().getText()
+            return  "int(" + ctx.Integer().getText() + ")"
         elif ctx.Hex():
             return ctx.Hex().getText()
         elif ctx.BitVector():
