@@ -196,7 +196,10 @@ class NopDecodeListener():
         """Called on unused directives (`__UNUSED`)"""
 
         pass
+    def listen_after(self):
+        """Called once after parsing the entire file, no children"""
 
+        pass
 
 class NopInstrsListener():
     """Defines the interface of listening to instruction file traversals
@@ -256,6 +259,10 @@ class NopInstrsListener():
 
         pass
 
+    def listen_after(self):
+        """Called once after parsing the entire file, no children"""
+
+        pass
 
 def visit_decoder_tree(tree, listener):
     """(Internal) Traverses the given tree of a decoder file and invokes the listener
@@ -474,6 +481,7 @@ def parse_asl_decoder_file(filename, listener):
     lines = line_list(filename)
     tree = tree_from_lines(lines)
     visit_decoder_tree(tree, listener)
+    listener.listen_after()
 
 
 def parse_asl_instructions_file(filename, listener):
@@ -486,3 +494,4 @@ def parse_asl_instructions_file(filename, listener):
     lines = line_list(filename)
     tree = tree_from_lines(lines)
     visit_instructions_listing(tree, listener)
+    listener.listen_after()
